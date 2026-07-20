@@ -20,7 +20,7 @@ chapter: false
 
 &emsp; **Email:** dcthanh.a1.c3tqcap@gmail.com
 
-&emsp; **Trường:** Đại học Sư phạm Kỹ thuật TP.HCM
+&emsp; **Trường:** Đại học Công nghệ Tp.HCM-HUTECH
 
 &emsp; **Ngành:** Công nghệ thông tin
 
