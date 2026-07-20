@@ -1,0 +1,21 @@
+Watching for changes in F:\internship\fcj-workshop-template\{archetypes,content,layouts,static,themes}
+Watching for config changes in F:\internship\fcj-workshop-template\config.toml
+Start building sites … 
+hugo v0.137.0-59c115813595cba1b1c0e70b867e734992648d1b+extended windows/amd64 BuildDate=2024-11-04T16:04:06Z VendorInfo=gohugoio
+
+
+                   | EN  | VI   
+-------------------+-----+------
+  Pages            |  82 |  81  
+  Paginator pages  |   0 |   0  
+  Non-page files   |   0 |   0  
+  Static files     | 178 | 178  
+  Processed images |   0 |   0  
+  Aliases          |   1 |   0  
+  Cleaned          |   0 |   0  
+
+Built in 1439 ms
+Environment: "development"
+Serving pages from disk
+Web Server is available at http://localhost:1313/ (bind address 127.0.0.1) 
+Press Ctrl+C to stop

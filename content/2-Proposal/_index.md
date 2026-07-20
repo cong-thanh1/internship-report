@@ -1,115 +1,121 @@
 ---
 title: "Proposal"
-date: 2024-01-01
+date: 2026-06-22
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-In this section, you need to summarize the contents of the workshop that you **plan** to conduct.
-
-# IoT Weather Platform for Lab Research
-## A Unified AWS Serverless Solution for Real-Time Weather Monitoring
+# SmartStudy AI
+## A Serverless Learning Assistant for Document-Based Study
 
 ### 1. Executive Summary
-The IoT Weather Platform is designed for the ITea Lab team in Ho Chi Minh City to enhance weather data collection and analysis. It supports up to 5 weather stations, with potential scalability to 10-15, utilizing Raspberry Pi edge devices with ESP32 sensors to transmit data via MQTT. The platform leverages AWS Serverless services to deliver real-time monitoring, predictive analytics, and cost efficiency, with access restricted to 5 lab members via Amazon Cognito.
+
+SmartStudy AI is a web-based learning platform that helps students learn from their own PDF materials. Users can create an account, upload and manage documents, ask questions grounded in document content, generate practice quizzes, submit answers, and review scores and explanations.
+
+The application uses a serverless AWS architecture for web hosting, authentication, APIs, storage, asynchronous processing, persistence, and monitoring. Because Amazon Bedrock was unavailable to the project account, the AI workload was moved to a Qwen 2.5 7B model running with Ollama on a self-hosted local AI server. A Cloudflare relay component appears in the project repository to support connectivity to the local AI service; its detailed implementation will be confirmed during final technical documentation.
 
 ### 2. Problem Statement
-### What’s the Problem?
-Current weather stations require manual data collection, becoming unmanageable with multiple units. There is no centralized system for real-time data or analytics, and third-party platforms are costly and overly complex.
 
-### The Solution
-The platform uses AWS IoT Core to ingest MQTT data, AWS Lambda and API Gateway for processing, Amazon S3 for storage (including a data lake), and AWS Glue Crawlers and ETL jobs to extract, transform, and load data from the S3 data lake to another S3 bucket for analysis. AWS Amplify with Next.js provides the web interface, and Amazon Cognito ensures secure access. Similar to Thingsboard and CoreIoT, users can register new devices and manage connections, though this platform operates on a smaller scale and is designed for private use. Key features include real-time dashboards, trend analysis, and low operational costs.
+Students often work with long and fragmented learning materials. Reading, summarizing, creating revision questions, and tracking learning results manually require considerable time. General-purpose chatbots may also answer beyond the supplied materials, making it difficult to verify whether a response is grounded in the learner's document.
 
-### Benefits and Return on Investment
-The solution establishes a foundational resource for lab members to develop a larger IoT platform, serving as a study resource, and provides a data foundation for AI enthusiasts for model training or analysis. It reduces manual reporting for each station via a centralized platform, simplifying management and maintenance, and improves data reliability. Monthly costs are $0.66 USD per the AWS Pricing Calculator, with a 12-month total of $7.92 USD. All IoT equipment costs are covered by the existing weather station setup, eliminating additional development expenses. The break-even period of 6-12 months is achieved through significant time savings from reduced manual work.
+SmartStudy addresses these problems by providing one workspace for:
 
-### 3. Solution Architecture
-The platform employs a serverless AWS architecture to manage data from 5 Raspberry Pi-based stations, scalable to 15. Data is ingested via AWS IoT Core, stored in an S3 data lake, and processed by AWS Glue Crawlers and ETL jobs to transform and load it into another S3 bucket for analysis. Lambda and API Gateway handle additional processing, while Amplify with Next.js hosts the dashboard, secured by Cognito. The architecture is detailed below:
+* Uploading and organizing PDF learning materials.
+* Asking questions based on an uploaded document.
+* Receiving responses with references to relevant document content.
+* Automatically generating practice quizzes.
+* Recording conversations, attempts, scores, and explanations.
 
-![IoT Weather Station Architecture](/images/2-Proposal/edge_architecture.jpeg)
+### 3. Proposed Solution
 
-![IoT Weather Platform Architecture](/images/2-Proposal/platform_architecture.jpeg)
+SmartStudy provides the following main workflows:
 
-### AWS Services Used
-- **AWS IoT Core**: Ingests MQTT data from 5 stations, scalable to 15.
-- **AWS Lambda**: Processes data and triggers Glue jobs (two functions).
-- **Amazon API Gateway**: Facilitates web app communication.
-- **Amazon S3**: Stores raw data in a data lake and processed outputs (two buckets).
-- **AWS Glue**: Crawlers catalog data, and ETL jobs transform and load it.
-- **AWS Amplify**: Hosts the Next.js web interface.
-- **Amazon Cognito**: Secures access for lab users.
+1. A user registers or signs in through Amazon Cognito.
+2. The web application requests backend operations through Amazon API Gateway.
+3. Documents are stored in Amazon S3 and submitted to an Amazon SQS queue for asynchronous processing.
+4. AWS Lambda processes documents and stores metadata, chunks, conversations, quizzes, and attempts in Amazon DynamoDB.
+5. AI requests are forwarded to the locally hosted Ollama model through the project's relay mechanism.
+6. Amazon CloudWatch collects operational logs, metrics, and alarms.
 
-### Component Design
-- **Edge Devices**: Raspberry Pi collects and filters sensor data, sending it to IoT Core.
-- **Data Ingestion**: AWS IoT Core receives MQTT messages from the edge devices.
-- **Data Storage**: Raw data is stored in an S3 data lake; processed data is stored in another S3 bucket.
-- **Data Processing**: AWS Glue Crawlers catalog the data, and ETL jobs transform it for analysis.
-- **Web Interface**: AWS Amplify hosts a Next.js app for real-time dashboards and analytics.
-- **User Management**: Amazon Cognito manages user access, allowing up to 5 active accounts.
+### 4. Preliminary Solution Architecture
 
-### 4. Technical Implementation
-**Implementation Phases**
-This project has two parts—setting up weather edge stations and building the weather platform—each following 4 phases:
-- Build Theory and Draw Architecture: Research Raspberry Pi setup with ESP32 sensors and design the AWS serverless architecture (1 month pre-internship)
-- Calculate Price and Check Practicality: Use AWS Pricing Calculator to estimate costs and adjust if needed (Month 1).
-- Fix Architecture for Cost or Solution Fit: Tweak the design (e.g., optimize Lambda with Next.js) to stay cost-effective and usable (Month 2).
-- Develop, Test, and Deploy: Code the Raspberry Pi setup, AWS services with CDK/SDK, and Next.js app, then test and release to production (Months 2-3).
+#### Initial proposed architecture
 
-**Technical Requirements**
-- Weather Edge Station: Sensors (temperature, humidity, rainfall, wind speed), a microcontroller (ESP32), and a Raspberry Pi as the edge device. Raspberry Pi runs Raspbian, handles Docker for filtering, and sends 1 MB/day per station via MQTT over Wi-Fi.
-- Weather Platform: Practical knowledge of AWS Amplify (hosting Next.js), Lambda (minimal use due to Next.js), AWS Glue (ETL), S3 (two buckets), IoT Core (gateway and rules), and Cognito (5 users). Use AWS CDK/SDK to code interactions (e.g., IoT Core rules to S3). Next.js reduces Lambda workload for the fullstack web app.
+The following diagram records the architecture proposed before implementation. It is retained to show the original design direction; some services shown in it were later removed or replaced because of service availability and operational constraints.
 
-### 5. Timeline & Milestones
-**Project Timeline**
-- Pre-Internship (Month 0): 1 month for planning and old station review.
-- Internship (Months 1-3): 3 months.
-    - Month 1: Study AWS and upgrade hardware.
-    - Month 2: Design and adjust architecture.
-    - Month 3: Implement, test, and launch.
-- Post-Launch: Up to 1 year for research.
+![Initial proposed architecture of SmartStudy AI](/images/2-Proposal/initial-proposed-architecture.jpg)
 
-### 6. Budget Estimation
-You can find the budget estimation on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=621f38b12a1ef026842ba2ddfe46ff936ed4ab01).  
-Or you can download the [Budget Estimation File](../attachments/budget_estimation.pdf).
+*Figure 1: Initial proposed architecture before implementation changes. This diagram does not represent the final deployed system.*
 
-### Infrastructure Costs
-- AWS Services:
-    - AWS Lambda: $0.00/month (1,000 requests, 512 MB storage).
-    - S3 Standard: $0.15/month (6 GB, 2,100 requests, 1 GB scanned).
-    - Data Transfer: $0.02/month (1 GB inbound, 1 GB outbound).
-    - AWS Amplify: $0.35/month (256 MB, 500 ms requests).
-    - Amazon API Gateway: $0.01/month (2,000 requests).
-    - AWS Glue ETL Jobs: $0.02/month (2 DPUs).
-    - AWS Glue Crawlers: $0.07/month (1 crawler).
-    - MQTT (IoT Core): $0.08/month (5 devices, 45,000 messages).
+#### Revised architecture
 
-Total: $0.7/month, $8.40/12 months
+![Final deployed architecture of SmartStudy AI](/images/2-Proposal/final-deployed-architecture.png)
 
-- Hardware: $265 one-time (Raspberry Pi 5 and sensors).
+*Figure 2: Final deployed architecture, including the AWS serverless workload and the self-hosted Ollama AI environment.*
 
-### 7. Risk Assessment
-#### Risk Matrix
-- Network Outages: Medium impact, medium probability.
-- Sensor Failures: High impact, low probability.
-- Cost Overruns: Medium impact, low probability.
+The project maintains separate staging and production resources in the `us-east-1` Region. The GitHub staging branch is used for integration work, while approved changes are merged into the main branch and deployed to production through AWS Amplify.
 
-#### Mitigation Strategies
-- Network: Local storage on Raspberry Pi with Docker.
-- Sensors: Regular checks and spares.
-- Cost: AWS budget alerts and optimization.
+### 5. Services and Technologies
 
-#### Contingency Plans
-- Revert to manual methods if AWS fails.
-- Use CloudFormation for cost-related rollbacks.
+#### AWS services
 
-### 8. Expected Outcomes
-#### Technical Improvements: 
-Real-time data and analytics replace manual processes.  
-Scalable to 10-15 stations.
-#### Long-term Value
-1-year data foundation for AI research.  
-Reusable for future projects.
+* **AWS Amplify Hosting:** Builds and deploys the web frontend from GitHub.
+* **Amazon Cognito:** Manages user registration, authentication, and tokens.
+* **Amazon API Gateway:** Exposes the backend HTTP API.
+* **AWS Lambda:** Handles API operations, document ingestion, and pre-sign-up logic.
+* **Amazon S3:** Stores uploaded PDF documents and AWS CDK assets.
+* **Amazon SQS:** Decouples document upload from asynchronous document processing.
+* **Amazon DynamoDB:** Stores documents, document chunks, conversations, messages, quizzes, exams, attempts, summaries, and AI job state.
+* **Amazon CloudWatch:** Provides logs, metrics, and alarms for Lambda and SQS.
+* **AWS IAM:** Controls access between users and AWS services.
+* **AWS CDK and AWS CloudFormation:** Define and deploy repeatable staging and production infrastructure.
+
+#### Supporting technologies
+
+* **GitHub:** Source control, branch collaboration, and the source for Amplify continuous deployment.
+* **Ollama:** Serves the language model from a self-hosted local AI server.
+* **Qwen 2.5 7B:** Local language model used by the AI workflow.
+* **Cloudflare relay:** Provides a relay layer associated with access to the locally hosted AI service. The exact relay mechanism remains to be verified from the deployment configuration.
+
+### 6. Architecture Changes and Constraints
+
+| Initial proposal | Implemented approach | Reason |
+| --- | --- | --- |
+| Route 53 custom domain | Default `amplifyapp.com` domain | The team could not complete the domain purchase. |
+| Amazon Bedrock | Ollama with Qwen 2.5 7B on a self-hosted local AI server | The required Bedrock operation was not allowed for the project account. |
+| AWS Secrets Manager | Deployment environment configuration | Secrets Manager was not used in the final implementation. |
+| AWS CloudTrail | Amazon CloudWatch monitoring | CloudTrail was not included in the implemented scope. |
+| Direct/synchronous document processing | Amazon SQS processing queues | Asynchronous processing isolates long-running ingestion from the user-facing API. |
+| Single environment | Separate staging and production resources | Separation reduces the risk of testing changes against production data and services. |
+
+### 7. Implementation Plan
+
+* **Planning:** Define the problem, core features, user flows, and initial AWS architecture.
+* **Architecture revision:** Validate service availability and replace unavailable components.
+* **Application development:** Implement the frontend, backend APIs, document processing, AI study room, and quiz workflows.
+* **Infrastructure deployment:** Provision staging and production resources through AWS CDK and CloudFormation.
+* **Integration:** Connect GitHub to Amplify and integrate Cognito, API Gateway, Lambda, S3, SQS, DynamoDB, and the local AI service.
+* **Validation:** Test registration, upload, processing, question answering, quiz generation, scoring, and result review.
+
+### 8. Risks and Mitigation
+
+| Risk | Impact | Mitigation |
+| --- | --- | --- |
+| The local AI server or Ollama service is unavailable | AI study and quiz functions may become unavailable | Keep the server available during demonstrations, monitor connectivity, and document a future managed-AI migration path. |
+| Relay or Internet connectivity is unstable | AI requests may be delayed or fail | Apply timeouts, error handling, and clear retry feedback. |
+| Uploaded document processing fails | Documents may remain unavailable for study | Use SQS, processing-status tracking, application error handling, and CloudWatch monitoring. |
+| Staging changes affect production | Service disruption or data inconsistency | Maintain separate staging and production resources and deploy through reviewed GitHub merges. |
+| AWS usage exceeds expectations | Unexpected project cost | Monitor resource usage and retain only the resources required for evaluation. |
+
+### 9. Expected Outcomes
+
+* A deployed SmartStudy web application accessible through AWS Amplify.
+* Secure user registration and sign-in through Amazon Cognito.
+* Reliable PDF upload and asynchronous document ingestion.
+* Document-grounded AI question answering and quiz generation.
+* Persistent learning history and result review.
+* Repeatable AWS infrastructure for staging and production.
+* A foundation for replacing the local Ollama service with a managed AI platform in a future version.
+
+This proposal is based on the deployed AWS resources, the completed application demonstration, and the available GitHub repository overview. The detailed Cloudflare-to-Ollama connection will be refined after the runtime configuration of the local AI server is verified.

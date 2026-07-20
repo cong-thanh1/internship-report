@@ -1,57 +1,28 @@
 ---
 title: "Week 10 Worklog"
-date: 2024-01-01
-weight: 2
+date: 2026-07-13
+weight: 10
 chapter: false
 pre: " <b> 1.10. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+### Focus for the week
 
-### Week 10 Objectives:
+In the final week, I separated production from staging, connected the full feature set, and ran the application as an end user would. The work included deployment, integration fixes, monitoring, and preparation for the final demonstration.
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### Work completed
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | --- | --- | --- | --- |
+| 1 | **Production Infrastructure** <br> - Deploy Cognito, API Gateway, Lambda, S3, SQS/DLQ, and DynamoDB with CDK <br> - Review IAM access and environment separation | 13/07/2026 | 14/07/2026 | AWS CDK project |
+| 2 | **Frontend Delivery and Security** <br> - Connect `main` to Amplify <br> - Deploy the production frontend <br> - Enable WAF <br> - Test Cognito registration and sign-in | 14/07/2026 | 15/07/2026 | Production environment |
+| 3 | **Feature Integration** <br> - Complete document processing and conversation history <br> - Integrate Ollama <br> - Complete quiz, scoring, explanations, and DLQ testing | 15/07/2026 | 17/07/2026 | SmartStudy application |
+| 4 | **Monitoring and Final Validation** <br> - Review CloudWatch logs and metrics <br> - Create alarms <br> - Fix integration and UI issues <br> - Run the final test and record the demo | 18/07/2026 | 19/07/2026 | CloudWatch and final demo |
 
+### Issues and resolution
 
-### Week 10 Achievements:
+Moving from staging to production required another check of the Cognito values, API endpoint, and permissions for the resources in each environment. A wrong value could allow the frontend to load while authentication or API requests still failed. I tested sign-in, upload, processing status, conversations, and quizzes in order and checked the corresponding CloudWatch logs at each stage. I fixed interface issues after the backend flow was stable so the source of each problem remained clear.
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+### End-of-week result
 
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+By July 19, 2026, SmartStudy supported authentication, document management, AI-assisted study, quiz generation, scoring, and result explanations. The project used an Ollama model running on a self-managed local AI server. Production remained online through July 30 for evaluation and demonstration; resource cleanup was outside the scope of this worklog.

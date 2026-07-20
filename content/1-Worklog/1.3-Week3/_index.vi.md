@@ -1,59 +1,28 @@
 ---
-title: "Worklog Tuần 3"
-date: 2024-01-01
-weight: 1
+title: "Nhật ký tuần 3"
+date: 2026-05-25
+weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Trọng tâm trong tuần
 
-### Mục tiêu tuần 3:
+Tuần 3 tiếp tục phần networking nhưng mở rộng từ một VPC sang nhiều VPC. Tôi thực hành hai cách kết nối là VPC Peering và Transit Gateway, sau đó so sánh cách định tuyến của từng mô hình.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Công việc đã thực hiện
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | **000019 - Thiết lập VPC Peering** <br> - Chuẩn bị tài nguyên <br> - Cập nhật Network ACL <br> - Tạo peering connection <br> - Cấu hình route table <br> - Bật Cross-Peer DNS | 25/05/2026 | 28/05/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 2 | **000020 - Thiết lập Transit Gateway** <br> - Chuẩn bị hạ tầng <br> - Tạo Transit Gateway và attachments <br> - Tạo TGW route table <br> - Cập nhật VPC route và kiểm tra kết nối | 29/05/2026 | 31/05/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
 
+Tài liệu sử dụng: các bài `000019 - Set Up VPC Peering` và `000020 - Set Up Transit Gateway` trong [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023).
 
-### Kết quả đạt được tuần 3:
+### Ghi nhận sau khi thực hiện
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+Khi peering đã ở trạng thái active nhưng hai máy vẫn chưa liên lạc được, tôi phải kiểm tra thêm route ở cả hai chiều, NACL và rule của Security Group. Đây là điểm tôi ghi nhớ rõ nhất trong tuần: tạo connection mới chỉ là một phần, traffic chỉ chạy khi toàn bộ đường đi được cấu hình đồng bộ. Transit Gateway có thêm bước attachment và route table riêng nhưng dễ quản lý hơn khi số lượng VPC tăng.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+### Kết quả cuối tuần
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+Tôi hoàn thành cả hai mô hình kết nối và hiểu giới hạn không hỗ trợ định tuyến bắc cầu của VPC Peering. Từ bài lab, tôi có cơ sở chọn peering cho kết nối đơn giản giữa ít VPC và cân nhắc Transit Gateway khi hệ thống lớn hơn.

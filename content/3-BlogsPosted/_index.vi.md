@@ -1,22 +1,15 @@
 ---
-title: "Các bài blogs đã đăng"
-date: 2024-01-01
+title: "Blog đã dịch"
+date: 2026-07-09
 weight: 3
 chapter: false
 pre: " <b> 3. </b> "
 ---
 
-{{% notice warning %}}  
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+Phần này tổng hợp nội dung bài viết kỹ thuật về cách triển khai ứng dụng .NET Blazor WebAssembly trên AWS. Kiến trúc không cần máy chủ ứng dụng chạy thường xuyên nhưng vẫn đáp ứng các yêu cầu như HTTPS, phân phối nội dung toàn cầu, bảo vệ origin và cache.
 
-Tại đây sẽ là phần liệt kê, giới thiệu các blogs mà các bạn đã đăng trên [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). Ví dụ:
+### [Triển khai ứng dụng .NET Blazor WebAssembly trên Amazon S3 và Amazon CloudFront](3.1-blog1/)
 
-###  [Blog 1 - SESSION POLICIES TRONG AMAZON EKS POD IDENTITY](3.1-Blog1/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Bài viết trình bày cách publish ứng dụng Blazor WebAssembly thành các tệp tĩnh, lưu chúng trong một S3 bucket private và phân phối tới người dùng qua CloudFront. Các nội dung chính gồm Origin Access Control, chiến lược cache cho từng nhóm tệp, cách xử lý client-side routing và quy trình triển khai bằng Terraform kết hợp AWS CLI.
 
-###  [Blog 2 - ...](3.2-Blog2/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
-
-###  [Blog 3 - ...](3.3-Blog3/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Nguồn bài viết: [.NET on AWS Blog](https://aws.amazon.com/vi/blogs/dotnet/host-a-net-blazor-webassembly-app-on-amazon-s3-and-amazon-cloudfront/)

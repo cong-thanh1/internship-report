@@ -1,22 +1,15 @@
 ---
-title: "Blogs Posted"
-date: 2024-01-01
+title: "Translated Blog"
+date: 2026-07-09
 weight: 3
 chapter: false
 pre: " <b> 3. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+This section summarizes a technical article about deploying a .NET Blazor WebAssembly application on AWS. The architecture does not require a continuously running application server, while still addressing practical web-hosting requirements such as HTTPS, global content delivery, origin protection, and caching.
 
-This section will list and introduce the blogs you have posted to [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). For example:
+### [Hosting a .NET Blazor WebAssembly App on Amazon S3 and Amazon CloudFront](3.1-blog1/)
 
-###  [Blog 1 - SESSION POLICIES IN AMAZON EKS POD IDENTITY](3.1-Blog1/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+The article explains how to publish a Blazor WebAssembly application as static files, store them in a private S3 bucket, and distribute them through CloudFront. Its main topics include Origin Access Control, cache rules for different file groups, client-side routing, and the deployment workflow using Terraform and the AWS CLI.
 
-###  [Blog 2 - ...](3.2-Blog2/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
-
-###  [Blog 3 - ...](3.3-Blog3/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+Source article: [.NET on AWS Blog](https://aws.amazon.com/blogs/dotnet/host-a-net-blazor-webassembly-app-on-amazon-s3-and-amazon-cloudfront/)

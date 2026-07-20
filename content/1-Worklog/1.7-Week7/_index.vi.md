@@ -1,59 +1,27 @@
 ---
-title: "Worklog Tuần 7"
-date: 2024-01-01
-weight: 1
+title: "Nhật ký tuần 7"
+date: 2026-06-22
+weight: 7
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Trọng tâm trong tuần
 
-### Mục tiêu tuần 7:
+Từ tuần 7, tôi bắt đầu dự án SmartStudy AI. Ý tưởng ban đầu là một ứng dụng hỗ trợ học từ tài liệu cá nhân: người dùng tải tài liệu lên, hỏi đáp theo nội dung, tạo bài luyện tập và xem lại kết quả.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Công việc đã thực hiện
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | **Lên ý tưởng dự án** <br> - Xác định người dùng và vấn đề <br> - Xác định các luồng tài liệu, hỏi đáp, quiz và kết quả <br> - Phác thảo user flow | 22/06/2026 | 24/06/2026 | Kế hoạch dự án |
+| 2 | **Thiết kế kiến trúc AWS** <br> - Tách frontend, xác thực, API, lưu trữ, xử lý tài liệu và AI/RAG <br> - Phác thảo sơ đồ kiến trúc | 25/06/2026 | 26/06/2026 | Thiết kế kiến trúc AWS |
+| 3 | **Chuẩn bị phạm vi và đầu việc** <br> - Chia hệ thống thành các module <br> - Xem xét rủi ro, chi phí và mức ưu tiên <br> - Chuẩn bị backlog | 27/06/2026 | 28/06/2026 | Project backlog |
 
+### Quyết định và điều chỉnh
 
-### Kết quả đạt được tuần 7:
+Ở bản phác thảo đầu tiên, tôi cân nhắc Amazon Bedrock và vector storage cho phần AI/RAG. Tuy nhiên, đây mới là phương án kiến trúc, chưa phải cấu hình đã triển khai. Tôi giữ ranh giới chức năng ở mức đủ cho một bản chạy hoàn chỉnh, tránh mở rộng thêm các tính năng quản lý lớp học khi những luồng cốt lõi chưa được kiểm chứng.
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+### Kết quả cuối tuần
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+SmartStudy AI đã có phạm vi tương đối rõ, sơ đồ kiến trúc đầu tiên và danh sách công việc theo module. Đây là đầu vào để tuần 8 bắt đầu dựng giao diện, API và luồng xử lý tài liệu.

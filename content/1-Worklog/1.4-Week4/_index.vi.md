@@ -1,59 +1,29 @@
 ---
-title: "Worklog Tuần 4"
-date: 2024-01-01
-weight: 1
+title: "Nhật ký tuần 4"
+date: 2026-06-01
+weight: 4
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Trọng tâm trong tuần
 
-### Mục tiêu tuần 4:
+Nội dung tuần này chuyển sang nhóm dịch vụ compute. Tôi bắt đầu từ thao tác cơ bản với EC2, sau đó ghép Launch Template, Target Group, Load Balancer và Auto Scaling Group thành một luồng triển khai hoàn chỉnh. Cuối tuần tôi thử Lightsail để so sánh với EC2.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Công việc đã thực hiện
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | **000004 - Thao tác EC2 cơ bản** <br> - Tạo EC2 instance <br> - Cài đặt ứng dụng <br> - Tạo snapshot | 01/06/2026 | 02/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 2 | **000006 - Triển khai Auto Scaling Group** <br> - Tạo Launch Template, Target Group, Load Balancer và Auto Scaling Group <br> - Kiểm tra instance health | 03/06/2026 | 05/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 3 | **000045 - Làm quen với Amazon Lightsail** <br> - Triển khai ứng dụng <br> - Thử Lightsail Load Balancer và RDS <br> - Tìm hiểu chuyển sang EC2 | 06/06/2026 | 07/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
 
+Tài liệu sử dụng: các bài `000004`, `000006` và `000045` trong [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023).
 
-### Kết quả đạt được tuần 4:
+### Ghi nhận sau khi thực hiện
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+Ở bài Auto Scaling, health check của Target Group là bước tôi phải chú ý nhiều nhất. Instance có thể đang chạy nhưng vẫn bị đánh dấu unhealthy nếu ứng dụng chưa lắng nghe đúng cổng hoặc đường dẫn kiểm tra không trả về kết quả hợp lệ. Sau khi đối chiếu security group, port và health check path, hệ thống mới hoạt động ổn định.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+### Kết quả cuối tuần
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+Tôi hiểu được vai trò riêng của từng thành phần trong mô hình mở rộng tự động, thay vì chỉ biết tạo EC2 đơn lẻ. Lightsail phù hợp cho bài toán cần triển khai nhanh và ít cấu hình; EC2 linh hoạt hơn khi cần kiểm soát hạ tầng chi tiết.

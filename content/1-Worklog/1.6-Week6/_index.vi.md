@@ -1,58 +1,29 @@
 ---
-title: "Worklog Tuần 6"
-date: 2024-01-01
-weight: 1
+title: "Nhật ký tuần 6"
+date: 2026-06-15
+weight: 6
 chapter: false
 pre: " <b> 1.6. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Trọng tâm trong tuần
 
-### Mục tiêu tuần 6:
+Tuần này tôi học sâu hơn về IAM. Mục tiêu là hiểu quyền được cấp như thế nào cho người dùng và dịch vụ, đồng thời tập viết và đọc policy thay vì chỉ gắn quyền có sẵn trên Console.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Công việc đã thực hiện
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | **AWS Security và IAM** <br> - Tạo IAM user và group <br> - Gắn managed policy <br> - Kiểm tra quyền trên Console | 15/06/2026 | 17/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 2 | **IAM Policy và Role** <br> - Đọc cấu trúc policy <br> - So sánh các loại managed policy <br> - Tạo role cho dịch vụ AWS | 18/06/2026 | 19/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 3 | **Rà soát bảo mật tài khoản** <br> - Kiểm tra MFA và bảo vệ root <br> - Kiểm tra access key và least privilege | 20/06/2026 | 21/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
 
+Tài liệu sử dụng: Session 5 về AWS Security và IAM trong [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023).
 
-### Kết quả đạt được tuần 6:
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+### Ghi nhận sau khi thực hiện
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+Khi kiểm tra một quyền không hoạt động, tôi học cách xem riêng principal, action, resource và effect trong policy. Cách này dễ tìm nguyên nhân hơn việc gắn thêm quyền rộng để thử. Tôi cũng phân biệt rõ hơn role của dịch vụ với IAM user: workload nhận quyền tạm thời qua role, không cần lưu access key cố định trong mã nguồn.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+### Kết quả cuối tuần
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+Tôi có thể tổ chức user theo group, đọc một policy cơ bản và tạo role cho dịch vụ. Nội dung least privilege được áp dụng lại ở giai đoạn làm SmartStudy, đặc biệt khi cấp quyền giữa Lambda, S3, SQS và DynamoDB.

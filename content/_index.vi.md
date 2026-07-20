@@ -1,33 +1,38 @@
 ---
 title: "Báo cáo thực tập"
-date: 2024-01-01
+date: 2026-07-15
 weight: 1
 chapter: false
 ---
 
 # Báo cáo thực tập
+
+<!--
+// { {% notice warning %}}
+// ⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
+// { {% /notice %}}
+-->
+
 ### Thông tin sinh viên:
-&emsp; **Họ và tên:** Nguyễn Văn A
+&emsp; **Họ và tên:** Dương Công Thành
 
-&emsp; **Số điện thoại:** 0989888999
+&emsp; **Số điện thoại:** 0905013187
 
-&emsp; **Email:** Anguyenvan@gmail.com
+&emsp; **Email:** dcthanh.a1.c3tqcap@gmail.com
 
 &emsp; **Trường:** Đại học Sư phạm Kỹ thuật TP.HCM
 
 &emsp; **Ngành:** Công nghệ thông tin
 
-&emsp; **Lớp:** AWS082025
+&emsp; **Lớp:** 22DTHG3
 
-&emsp; **Công ty thực tập:** Công ty TNHH Amazon Web Services Viet Nam
+&emsp; **Công ty thực tập:** Công ty TNHH Amazon Web Services Việt Nam
 
-&emsp; **Vị trí thực tập:** Workforce Bootcamp - First Cloud AI Journey
+&emsp; **Vị trí thực tập:** FCJ Cloud Intern
 
-&emsp; **Thời gian thực tập:** Từ ngày 12/08/2025 đến ngày 12/11/2025
+&emsp; **Thời gian thực tập:** Từ ngày 17/04/2026 đến ngày 30/07/2026
 
-![Ảnh đại diện của bạn](/images/avatar.png)
-
-
+![Ảnh đại diện của bạn](/images/avatar.jpg)
 
 ### Nội dung báo cáo
 

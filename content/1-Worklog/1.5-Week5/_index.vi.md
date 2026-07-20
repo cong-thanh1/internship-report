@@ -1,59 +1,29 @@
 ---
-title: "Worklog Tuần 5"
-date: 2024-01-01
-weight: 1
+title: "Nhật ký tuần 5"
+date: 2026-06-08
+weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Trọng tâm trong tuần
 
-### Mục tiêu tuần 5:
+Tuần 5 tập trung vào lưu trữ. Thay vì chỉ ghi nhớ tên dịch vụ, tôi phân loại theo bốn kiểu: object, block, file và hybrid storage, rồi đặt từng dịch vụ vào tình huống sử dụng phù hợp.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Công việc đã thực hiện
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | **Amazon S3** <br> - Tạo và cấu hình bucket <br> - Upload và sắp xếp object <br> - Tìm hiểu versioning, lifecycle và quyền truy cập | 08/06/2026 | 10/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 2 | **Block và File Storage** <br> - Tìm hiểu EBS và snapshot <br> - Tìm hiểu EFS <br> - So sánh block storage với shared file storage | 11/06/2026 | 12/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 3 | **Advanced và Hybrid Storage** <br> - Tìm hiểu Amazon FSx và AWS Storage Gateway <br> - So sánh các tình huống hybrid storage | 13/06/2026 | 14/06/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
 
+Tài liệu sử dụng: Session 4 về AWS Storage Services trong [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023).
 
-### Kết quả đạt được tuần 5:
+### Ghi nhận sau khi thực hiện
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+Điểm dễ nhầm ban đầu là EBS và EFS đều có thể được ứng dụng trên EC2 sử dụng, nhưng cách truy cập và bài toán giải quyết khác nhau. Tôi tự đối chiếu theo ba tiêu chí: kiểu dữ liệu, số lượng máy cần truy cập và yêu cầu chia sẻ. Với S3, tôi cũng lưu ý versioning và lifecycle ảnh hưởng trực tiếp đến khả năng khôi phục lẫn chi phí lưu trữ.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+### Kết quả cuối tuần
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+Tôi không còn chọn dịch vụ lưu trữ chỉ dựa trên tên gọi. Sau tuần này, tôi có thể giải thích lựa chọn giữa S3, EBS, EFS, FSx và Storage Gateway dựa trên nhu cầu truy cập, chia sẻ dữ liệu và môi trường triển khai.

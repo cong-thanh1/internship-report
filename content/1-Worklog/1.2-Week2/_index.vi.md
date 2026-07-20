@@ -1,59 +1,28 @@
 ---
-title: "Worklog Tuần 2"
-date: 2024-01-01
-weight: 1
+title: "Nhật ký tuần 2"
+date: 2026-05-18
+weight: 2
 chapter: false
 pre: " <b> 1.2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Trọng tâm trong tuần
 
-### Mục tiêu tuần 2:
+Sau phần thiết lập tài khoản, tôi chuyển sang mạng trên AWS. Mục tiêu của tuần là tự dựng một VPC, hiểu đường đi của traffic và kết nối tới EC2 bằng Session Manager thay cho SSH trực tiếp.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### Công việc đã thực hiện
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | **000003 - Tạo VPC** <br> - Tìm hiểu các thành phần và tường lửa VPC <br> - Tạo VPC theo bài lab <br> - Tìm hiểu luồng Site-to-Site VPN | 18/05/2026 | 21/05/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 2 | **000058 - Systems Manager Session Manager** <br> - Chuẩn bị IAM role và SSM Agent <br> - Kết nối EC2 <br> - Kiểm tra session log <br> - Cấu hình port forwarding | 18/05/2026 | 24/05/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
 
+Tài liệu sử dụng: các bài `000003 - Create a VPC` và `000058 - Systems Manager Session Manager` trong [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023).
 
-### Kết quả đạt được tuần 2:
+### Ghi nhận sau khi thực hiện
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+Phần mất thời gian nhất là đối chiếu route table với subnet và rule của Security Group/NACL khi kết nối chưa đi đúng như dự kiến. Tôi kiểm tra lần lượt từng lớp thay vì thay đổi nhiều cấu hình cùng lúc. Với Session Manager, tôi nhận ra EC2 không chỉ cần SSM Agent mà còn phải có IAM role và đường kết nối phù hợp tới dịch vụ SSM.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+### Kết quả cuối tuần
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+Tôi dựng được VPC theo bài thực hành và quản trị EC2 qua Session Manager. Bài lab giúp tôi nhìn rõ hơn mối liên hệ giữa định tuyến, tường lửa và quyền IAM trong một kết nối thực tế.

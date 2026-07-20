@@ -1,57 +1,28 @@
 ---
 title: "Week 3 Worklog"
-date: 2024-01-01
-weight: 1
+date: 2026-05-25
+weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+### Focus for the week
 
-### Week 3 Objectives:
+Week 3 extended the networking work from one VPC to several VPCs. I set up both VPC Peering and Transit Gateway, then compared the routing required by the two approaches.
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### Work completed
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | --- | --- | --- | --- |
+| 1 | **000019 - Set Up VPC Peering** <br> - Complete the preparation steps <br> - Update Network ACLs <br> - Create a peering connection <br> - Configure route tables <br> - Enable Cross-Peer DNS | 25/05/2026 | 28/05/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
+| 2 | **000020 - Set Up Transit Gateway** <br> - Set up the infrastructure <br> - Create the Transit Gateway and attachments <br> - Create the TGW route table <br> - Update VPC routes and verify connectivity | 29/05/2026 | 31/05/2026 | [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023) |
 
+References: `000019 - Set Up VPC Peering` and `000020 - Set Up Transit Gateway` in the [FCJ Workshop](https://github.com/AWS-First-Cloud-Journey/FCJ-2023).
 
-### Week 3 Achievements:
+### Notes from the work
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+A peering connection could be active while the instances still could not reach each other. I had to check the routes in both directions, the NACLs, and the Security Group rules before the connection worked. That was the main lesson from the lab: creating the connection is only one step, and every part of the traffic path has to agree. Transit Gateway introduced separate attachment and routing steps, but the structure was easier to follow as the number of VPCs increased.
 
-* Successfully created and configured an AWS Free Tier account.
+### End-of-week result
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+I completed both connection models and understood the lack of transitive routing in VPC Peering. I would use peering for a small number of direct VPC connections and consider Transit Gateway when centralized connectivity becomes more important.
