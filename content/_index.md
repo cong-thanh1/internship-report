@@ -19,7 +19,7 @@ chapter: false
 
 &emsp; **Email:** dcthanh.a1.c3tqcap@gmail.com
 
-&emsp; **University:** Ho Chi Minh City University of Technology and Education
+&emsp; **University:** HUTECH University
 
 &emsp; **Major:** Information Technology
 
@@ -31,7 +31,7 @@ chapter: false
 
 &emsp; **Internship Duration:** From 17/04/2026 to 30/07/2026
 
-![Your profile picture](/images/avatar.jpg)
+![Your profile picture](/internship-report/images/avatar.jpg)
 
 ### Report Content
 

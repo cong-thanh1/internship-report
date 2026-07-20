@@ -44,13 +44,13 @@ SmartStudy provides the following main workflows:
 
 The following diagram records the architecture proposed before implementation. It is retained to show the original design direction; some services shown in it were later removed or replaced because of service availability and operational constraints.
 
-![Initial proposed architecture of SmartStudy AI](/images/2-Proposal/initial-proposed-architecture.jpg)
+![Initial proposed architecture of SmartStudy AI](/internship-report/images/2-Proposal/initial-proposed-architecture.jpg)
 
 *Figure 1: Initial proposed architecture before implementation changes. This diagram does not represent the final deployed system.*
 
 #### Revised architecture
 
-![Final deployed architecture of SmartStudy AI](/images/2-Proposal/final-deployed-architecture.png)
+![Final deployed architecture of SmartStudy AI](/internship-report/images/2-Proposal/final-deployed-architecture.png)
 
 *Figure 2: Final deployed architecture, including the AWS serverless workload and the self-hosted Ollama AI environment.*
 

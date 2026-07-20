@@ -44,13 +44,13 @@ SmartStudy cung cấp các luồng chính sau:
 
 Sơ đồ dưới đây ghi lại kiến trúc được đề xuất trước khi triển khai. Sơ đồ được giữ lại để thể hiện định hướng thiết kế ban đầu; một số dịch vụ trong sơ đồ sau đó đã bị loại bỏ hoặc thay thế do giới hạn dịch vụ và yêu cầu vận hành thực tế.
 
-![Kiến trúc đề xuất ban đầu của SmartStudy AI](/images/2-Proposal/initial-proposed-architecture.jpg)
+![Kiến trúc đề xuất ban đầu của SmartStudy AI](/internship-report/images/2-Proposal/initial-proposed-architecture.jpg)
 
 *Hình 1: Kiến trúc đề xuất ban đầu trước khi có các thay đổi trong quá trình triển khai. Sơ đồ này không đại diện cho hệ thống được triển khai cuối cùng.*
 
 #### Kiến trúc sau điều chỉnh
 
-![Kiến trúc triển khai cuối cùng của SmartStudy AI](/images/2-Proposal/final-deployed-architecture.png)
+![Kiến trúc triển khai cuối cùng của SmartStudy AI](/internship-report/images/2-Proposal/final-deployed-architecture.png)
 
 *Hình 2: Kiến trúc triển khai cuối cùng, gồm workload serverless trên AWS và môi trường AI Ollama tự quản lý.*
 
