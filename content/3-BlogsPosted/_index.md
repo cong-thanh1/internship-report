@@ -13,3 +13,9 @@ This section summarizes a technical article about deploying a .NET Blazor WebAss
 The article explains how to publish a Blazor WebAssembly application as static files, store them in a private S3 bucket, and distribute them through CloudFront. Its main topics include Origin Access Control, cache rules for different file groups, client-side routing, and the deployment workflow using Terraform and the AWS CLI.
 
 Source article: [.NET on AWS Blog](https://aws.amazon.com/blogs/dotnet/host-a-net-blazor-webassembly-app-on-amazon-s3-and-amazon-cloudfront/)
+
+### [Building an AI Gateway to Amazon Bedrock with Amazon API Gateway](3.3-blog3/)
+
+This article presents a governed access layer for Amazon Bedrock using API Gateway, a Lambda authorizer, and a dynamic Lambda integration. It covers private deployment with CloudFormation, testing through a CloudShell VPC environment, streaming model responses, enabling JWT authorization, and extending the gateway with throttling, AWS WAF, caching, and content filtering.
+
+Source article: [AWS Architecture Blog](https://aws.amazon.com/blogs/architecture/building-an-ai-gateway-to-amazon-bedrock-with-amazon-api-gateway/)
