@@ -7,7 +7,7 @@ pre: " <b> 4. </b> "
 ---
 
 
-During my internship, I participated in two events. Each one was a memorable experience that provided new, interesting, and useful knowledge, along with gifts and wonderful moments.
+During my internship, I participated in three events. Each one was a memorable experience that provided new, interesting, and useful knowledge, along with gifts and wonderful moments.
 
 ### [Event 1](4.1-Event1/)  
 &emsp;**Event Name:** Meetup 06/06/2026 
@@ -24,6 +24,17 @@ During my internship, I participated in two events. Each one was a memorable exp
 &emsp;**Event Name:** FCAJ Community Day - Data Driven, AI Risen  
 
 &emsp;**Date & Time:** 09:00, June 27, 2026  
+
+&emsp;**Location:** 26th Floor, Bitexco Tower, 02 Hai Trieu Street, Saigon Ward, Ho Chi Minh City  
+
+&emsp;**Role:** Attendee  
+
+---
+
+### [Event 3](4.3-Event3/)  
+&emsp;**Event Name:** FCAJ x Agentic AI Build Week: Show Up. Build. Pitch. WIN!  
+
+&emsp;**Date & Time:** 09:00, July 25, 2026  
 
 &emsp;**Location:** 26th Floor, Bitexco Tower, 02 Hai Trieu Street, Saigon Ward, Ho Chi Minh City  
 
