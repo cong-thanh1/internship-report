@@ -1,5 +1,5 @@
 ---
-title: "Event 1"
+title: "Meetup 06/06/2026"
 date: 2024-01-01
 weight: 1
 chapter: false
@@ -8,7 +8,6 @@ pre: " <b> 4.1. </b> "
 
 # Bài thu hoạch “Meetup 06/06/2026”
 
-# AWS Community Sharing Session
 
 ## Mục Đích Của Sự Kiện
 

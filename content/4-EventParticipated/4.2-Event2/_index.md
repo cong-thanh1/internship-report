@@ -1,5 +1,5 @@
 ---
-title: "Event 2"
+title: "FCAJ Community Day - Data Driven, AI Risen"
 date: 2026-06-26
 weight: 2
 chapter: false
