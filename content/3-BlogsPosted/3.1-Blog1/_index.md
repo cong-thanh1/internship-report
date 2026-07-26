@@ -6,27 +6,13 @@ chapter: false
 pre: " <b> 3.1. </b> "
 ---
 
-## Hosting a .NET Blazor WebAssembly App on Amazon S3 and Amazon CloudFront
+## Deploying a .NET Blazor WebAssembly Application on AWS with Amazon S3 and Amazon CloudFront
 
-### Overview
+Blazor WebAssembly (WASM) makes it possible to build interactive web applications in C#. After compilation, the application consists of static files such as HTML, CSS, JavaScript, and WASM. Therefore, it can be stored on Amazon S3 and distributed through Amazon CloudFront without operating an application server.
 
-Blazor WebAssembly makes it possible to build an interactive web interface in C# and run it in the browser. After `dotnet publish`, the application consists of static HTML, CSS, JavaScript, and WebAssembly files. Since no application server is required to serve these files, Amazon S3 and Amazon CloudFront provide a suitable hosting model with little server administration.
-
-The article goes beyond uploading a website to S3. It addresses several issues that appear when a Single Page Application (SPA) is deployed in practice: protecting the bucket, avoiding stale deployments, supporting direct access to client-side routes, and assigning the correct MIME headers to compressed files.
+In this model, Amazon S3 is the private origin, CloudFront is the CDN and public HTTPS entry point, and Terraform is used to manage the infrastructure.
 
 ![Architecture for hosting Blazor WebAssembly with Amazon S3 and Amazon CloudFront](/images/3-BlogPosted/WebAssembly.png)
-
-### Architecture
-
-The request flow contains three main components:
-
-1. The **Blazor WebAssembly** application is published as static content.
-2. **Amazon S3** stores the build output in a private bucket with public access blocked.
-3. **Amazon CloudFront** provides the public HTTPS endpoint, retrieves content from S3, and caches it at edge locations.
-
-CloudFront reaches the bucket through **Origin Access Control (OAC)**. It signs S3 requests with SigV4, while the bucket policy grants object access only to the specified CloudFront distribution. Users therefore cannot bypass CloudFront and read the S3 objects directly, and S3 static website hosting does not need to be enabled.
-
-For an optional custom domain, Amazon Route 53 can provide the alias record and AWS Certificate Manager can issue the TLS certificate used by CloudFront.
 
 ### Key design decisions
 
@@ -44,7 +30,7 @@ For an optional custom domain, Amazon Route 53 can provide the alias record and 
 | AWS CLI | v2 | Upload files and create cache invalidations |
 | Git | Any | Clone the repository |
 
-The IAM user or role also needs the required S3 and CloudFront permissions:
+The IAM user or role needs the following permissions:
 
 ```text
 s3:CreateBucket, s3:PutObject, s3:DeleteObject, s3:ListBucket,
@@ -62,15 +48,24 @@ aws configure
 
 ## Step 1: Create the Blazor WebAssembly application
 
+Create a Blazor WASM project using .NET 10:
+
 ```bash
 dotnet new blazorwasm -o src/BlazorApp --framework net10.0
-dotnet run --project src/BlazorApp
-# Open https://localhost:5XXX in a browser
 ```
 
 The default template provides Home, Counter, and Weather pages that demonstrate routing, interactivity, and HTTP data fetching. No code changes are required for AWS hosting.
 
+Run the application locally:
+
+```bash
+dotnet run --project src/BlazorApp
+# Open https://localhost:5XXX in a browser
+```
+
 ## Step 2: Provision the infrastructure with Terraform
+
+The AWS resources are defined in the `infra/` directory. Terraform creates a versioned private S3 bucket, a CloudFront distribution using OAC, and two cache policies. If a custom domain is used, the configuration can also include an ACM certificate and a Route 53 record.
 
 ```text
 infra/
@@ -81,7 +76,7 @@ infra/
 └── terraform.tfvars  # Deployment values; do not commit secrets
 ```
 
-#### S3 bucket (`main.tf`)
+### Create the private S3 bucket (`main.tf`)
 
 ```hcl
 resource "aws_s3_bucket" "blazor_app" {
@@ -128,9 +123,9 @@ data "aws_iam_policy_document" "s3_cloudfront_read" {
 }
 ```
 
-The `aws:SourceArn` condition grants access to exactly one distribution rather than every principal using the CloudFront service.
+The `aws:SourceArn` condition restricts read access to the specified CloudFront distribution instead of allowing every distribution that belongs to the CloudFront service.
 
-#### Origin Access Control and cache policies (`cloudfront.tf`)
+### Create OAC and cache policies (`cloudfront.tf`)
 
 ```hcl
 resource "aws_cloudfront_origin_access_control" "blazor_app" {
@@ -169,7 +164,9 @@ resource "aws_cloudfront_cache_policy" "no_cache" {
 }
 ```
 
-#### CloudFront distribution (`cloudfront.tf`)
+The first policy is used for assets whose names contain content hashes and supports Brotli/gzip. The second policy sets the TTL to 0 for `index.html` and paths that do not match a dedicated cache behavior.
+
+### Create the CloudFront distribution (`cloudfront.tf`)
 
 ```hcl
 resource "aws_cloudfront_distribution" "blazor_app" {
@@ -229,7 +226,9 @@ resource "aws_cloudfront_distribution" "blazor_app" {
 }
 ```
 
-#### Variables, outputs, and infrastructure deployment
+The two custom error responses map 403/404 errors to `/index.html` with an HTTP 200 response. The Blazor Router then reads the URL and displays the appropriate component, allowing deep links such as `/counter` to work.
+
+### Declare variables and outputs
 
 ```hcl
 # terraform.tfvars
@@ -243,10 +242,13 @@ route53_zone_id        = ""
 output "cloudfront_distribution_id" {
   value = aws_cloudfront_distribution.blazor_app.id
 }
+
 output "app_url" {
   value = var.custom_domain != "" ? "https://${var.custom_domain}" : "https://${aws_cloudfront_distribution.blazor_app.domain_name}"
 }
 ```
+
+Initialize and apply the infrastructure:
 
 ```bash
 cd infra
@@ -259,56 +261,74 @@ CloudFront distribution creation usually takes 5–10 minutes. Save the `cloudfr
 
 ## Step 3: Deploy the application
 
+The `deploy.sh` script builds the application, uploads it to S3, and creates a CloudFront invalidation.
+
 ```bash
 ./scripts/deploy.sh <bucket-name> <cloudfront-distribution-id>
 
 dotnet publish src/BlazorApp/BlazorApp.csproj \
-  -c Release -o publish --nologo
+  -c Release \
+  -o publish \
+  --nologo
 ```
 
-The upload script must process pre-compressed files separately:
+### Upload with the appropriate MIME types and cache headers
 
 ```bash
 BUCKET=$1
 
+# Uncompressed framework files
 aws s3 sync publish/wwwroot/_framework/ s3://$BUCKET/_framework/ \
   --delete --exclude "*.br" \
   --cache-control "max-age=31536000,immutable"
 
+# Brotli-compressed WebAssembly
 aws s3 sync publish/wwwroot/_framework/ s3://$BUCKET/_framework/ \
   --exclude "*" --include "*.wasm.br" \
   --content-encoding "br" --content-type "application/wasm" \
   --cache-control "max-age=31536000,immutable"
 
+# Brotli-compressed JavaScript
 aws s3 sync publish/wwwroot/_framework/ s3://$BUCKET/_framework/ \
   --exclude "*" --include "*.js.br" \
   --content-encoding "br" --content-type "application/javascript" \
   --cache-control "max-age=31536000,immutable"
 
+# Brotli-compressed ICU data
 aws s3 sync publish/wwwroot/_framework/ s3://$BUCKET/_framework/ \
   --exclude "*" --include "*.dat.br" \
   --content-encoding "br" --content-type "application/octet-stream" \
   --cache-control "max-age=31536000,immutable"
 
+# Other static assets
 aws s3 sync publish/wwwroot/ s3://$BUCKET/ \
   --delete --exclude "_framework/*" --exclude "index.html*" \
   --cache-control "max-age=31536000,immutable"
 
+# index.html must always remain fresh
 aws s3 cp publish/wwwroot/index.html s3://$BUCKET/index.html \
   --cache-control "no-cache, no-store, must-revalidate" \
   --content-type "text/html"
 ```
 
-Create and wait for the CloudFront invalidation:
+The `.br` files must be assigned explicit `Content-Encoding` and `Content-Type` values because the AWS CLI does not correctly detect every case.
+
+### Create a cache invalidation
 
 ```bash
 DIST_ID=$2
+
 INVALIDATION_ID=$(aws cloudfront create-invalidation \
-  --distribution-id $DIST_ID --paths "/*" \
-  --query 'Invalidation.Id' --output text)
+  --distribution-id $DIST_ID \
+  --paths "/*" \
+  --query 'Invalidation.Id' \
+  --output text)
 
 aws cloudfront wait invalidation-completed \
-  --distribution-id $DIST_ID --id $INVALIDATION_ID
+  --distribution-id $DIST_ID \
+  --id $INVALIDATION_ID
+
+echo "Deployed. Invalidation: $INVALIDATION_ID"
 ```
 
 | Path | Cache-Control | Reason |
@@ -321,15 +341,23 @@ aws cloudfront wait invalidation-completed \
 
 ```bash
 APP_URL="https://d1mw9a12s7eftc.cloudfront.net"
+
 curl -sI "$APP_URL/index.html" | grep -i "cache-control"
+# cache-control: no-cache, no-store, must-revalidate
+
 curl -sI "$APP_URL/_framework/blazor.web.js" | grep -i "cache-control"
+# cache-control: max-age=31536000,immutable
+
 curl -sI "$APP_URL/_framework/dotnet.runtime.wasm" | grep -i "content-type"
+# content-type: application/wasm
+
 curl -sI "$APP_URL/counter" | grep -i "HTTP/"
+# HTTP/2 200
 ```
 
-Open `https://<your-url>/counter` in a fresh browser tab to confirm that client-side routing works.
+In addition to checking the headers, open `https://<your-url>/counter` directly in a new browser tab to confirm that client-side routing works.
 
-#### Optional custom domain
+### Optional: use a custom domain
 
 ```hcl
 custom_domain   = "app.yourdomain.com"
@@ -338,52 +366,31 @@ route53_zone_id = "Z1234567890ABC"
 
 Terraform provisions an ACM certificate in `us-east-1`, DNS validation records, a Route 53 alias, and the CloudFront certificate configuration. DNS validation can take 5–30 minutes.
 
-### Cleanup
+## Clean up resources
+
+The S3 bucket must be emptied before Terraform can delete it:
 
 ```bash
 aws s3 rm s3://my-blazor-wasm-app --recursive
+
 cd infra
 terraform destroy
+
 aws s3 ls | grep my-blazor-wasm-app
+# No output is returned if the bucket has been deleted
 ```
 
-When versioning is enabled, delete all object versions and delete markers before running `terraform destroy`.
+If versioning is enabled, all object versions and delete markers must also be removed before running `terraform destroy`.
 
-### Main technical points
+## Conclusion
 
-#### 1. Cache behavior should match the file type
+- `dotnet publish` creates static content that can be stored directly on S3.
+- OAC keeps the bucket private and only allows the specified CloudFront distribution to access it through SigV4-signed requests.
+- `_framework/*` can be cached for one year, while `index.html` is not cached.
+- Mapping 403/404 responses to `index.html` allows the Blazor Router to handle deep links.
+- `.br` files require the correct `Content-Encoding` and `Content-Type` values when uploaded.
 
-Files under `_framework/*` contain content hashes in their names. A content change produces a new file name, which makes a one-year `max-age=31536000, immutable` cache safe for these assets.
-
-`index.html` is different because it must point to the current deployment. Caching it for too long can leave a browser referring to old bundles. The deployment therefore assigns `no-cache, no-store, must-revalidate` to this file.
-
-#### 2. SPA deep links require CloudFront handling
-
-When a user opens a route such as `/counter` directly, S3 looks for an object at that path. It does not exist, so the private bucket returns 403; a missing path may also produce 404.
-
-CloudFront Custom Error Responses map both errors to `/index.html` with an HTTP 200 response. Once the application loads, the Blazor Router reads the URL and renders the correct component. Direct navigation and browser refreshes on nested routes then work as expected.
-
-#### 3. Brotli files need explicit content headers
-
-The publish output includes `.br` files for WebAssembly, JavaScript, and runtime data. S3 does not infer every required header correctly. The deployment script uploads these groups separately and assigns `Content-Encoding: br` together with the appropriate `Content-Type`, such as `application/wasm` for WebAssembly.
-
-Incorrect headers can allow the object to download while still preventing the browser from decoding or executing it properly.
-
-#### 4. Infrastructure and application deployment are automated separately
-
-The article uses **Terraform** to provision the S3 bucket, bucket policy, CloudFront distribution, OAC, and cache policies. A deployment script then performs three steps:
-
-1. Publish the application in Release mode with `dotnet publish`.
-2. Synchronize `publish/wwwroot` to S3 with the required headers.
-3. Create a CloudFront invalidation so the new deployment reaches users.
-
-Separating infrastructure provisioning from application deployment keeps AWS resource changes controlled while allowing the application to be released repeatedly.
-
-### Conclusion
-
-Static hosting involves more than placing files in a public bucket. A suitable deployment keeps S3 private, exposes the content through CloudFront, and configures caching and routing around the behavior of an SPA.
-
-The same architecture can support React, Angular, Vue, or Svelte by replacing the build step. In each case, cache headers, MIME types, and deep-link behavior still need to be tested instead of applying one configuration to every object.
+The same model can be applied to React, Angular, Vue, and Svelte by replacing the corresponding build command.
 
 ### Reference
 
